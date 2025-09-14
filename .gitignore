@@ -5,6 +5,12 @@ node_modules/
 .env
 .env.*
 !.env.example
+.env.local
+.env.development
+.env.production
+.env.test
+.envrc
+.env-e
 
 # Logs
 logs
@@ -20,6 +26,8 @@ Thumbs.db
 .vscode/
 .idea/
 *.swp
+.history/
+*.code-workspace
 
 # Build artifacts
 /dist/
@@ -35,6 +43,35 @@ coverage/
 .svelte-kit/
 .vercel/
 .netlify/
+
+# Package manager configs that may contain tokens
+.npmrc
+.yarnrc
+.yarnrc.yml
+.pnpmfile.cjs
+.npm/
+.pnpm-store/
+
+# Credentials / keys
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+*.cer
+*.der
+*.asc
+*.keystore
+*.jks
+*.p8
+
+# Cloud/CLI credentials
+.aws/
+.azure/
+.gcloud/
+.gcp/
+.kube/
+.ssh/
 
 # Puppeteer/Playwright caches
 .playwright/
