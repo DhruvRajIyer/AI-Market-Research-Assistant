@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minimal Company Research</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    h1 {
+      color: #333;
+      text-align: center;
+    }
+    .container {
+      margin-top: 20px;
+    }
+    #company-form {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    input {
+      flex-grow: 1;
+      padding: 8px;
+      font-size: 16px;
+    }
+    button {
+      padding: 8px 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    button:disabled {
+      background-color: #cccccc;
+      cursor: not-allowed;
+    }
+    #loading {
+      display: none;
+      text-align: center;
+      margin: 20px 0;
+    }
+    #result {
+      white-space: pre-wrap;
+      background-color: #f9f9f9;
+      border-left: 4px solid #4CAF50;
+      padding: 15px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Company Research</h1>
+  
+  <div class="container">
+    <form id="company-form">
+      <input 
+        type="text" 
+        id="company-input" 
+        placeholder="Enter company name (e.g., Apple Inc)" 
+        required
+      >
+      <button type="submit" id="submit-btn">Research</button>
+    </form>
+    
+    <div id="loading">Researching company... This may take a moment.</div>
+    
+    <div id="result"></div>
+  </div>
+
+  <script>
+    document.getElementById('company-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const companyName = document.getElementById('company-input').value.trim();
+      const submitBtn = document.getElementById('submit-btn');
+      const loadingEl = document.getElementById('loading');
+      const resultEl = document.getElementById('result');
+      
+      if (!companyName) return;
+      
+      // Show loading, disable button
+      submitBtn.disabled = true;
+      loadingEl.style.display = 'block';
+      resultEl.textContent = '';
+      
+      try {
+        const response = await fetch('/api/company', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ query: companyName })
+        });
+        
+        const data = await response.json();
+        
+        if (response.ok) {
+          resultEl.innerHTML = `<h2>Research Results for ${data.company}</h2>
+            <div>${data.analysis}</div>`;
+        } else {
+          resultEl.textContent = `Error: ${data.error || 'Something went wrong'}`;
+        }
+      } catch (error) {
+        resultEl.textContent = `Error: ${error.message}`;
+      } finally {
+        // Hide loading, enable button
+        submitBtn.disabled = false;
+        loadingEl.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>

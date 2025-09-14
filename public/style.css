@@ -1,0 +1,258 @@
+/* Market Research Agent - Main Stylesheet */
+
+:root {
+  --primary-color: #4285f4;
+  --secondary-color: #34a853;
+  --accent-color: #fbbc05;
+  --danger-color: #ea4335;
+  --text-color: #333333;
+  --light-text: #757575;
+  --background-color: #ffffff;
+  --light-background: #f5f5f5;
+  --border-color: #e0e0e0;
+  --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  --border-radius: 8px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+  line-height: 1.6;
+  color: var(--text-color);
+  background-color: var(--light-background);
+  padding: 20px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+h1 {
+  color: var(--primary-color);
+  margin-bottom: 10px;
+  font-size: 2.5rem;
+}
+
+.subtitle {
+  color: var(--light-text);
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.card {
+  background-color: var(--background-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  padding: 25px;
+  margin-bottom: 30px;
+}
+
+.tabs {
+  display: flex;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.tab {
+  padding: 10px 20px;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.tab:hover {
+  color: var(--primary-color);
+}
+
+.tab.active {
+  color: var(--primary-color);
+  border-bottom: 3px solid var(--primary-color);
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+input[type="text"],
+select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  font-size: 16px;
+  transition: border 0.3s ease;
+}
+
+input[type="text"]:focus,
+select:focus {
+  border-color: var(--primary-color);
+  outline: none;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+}
+
+button {
+  padding: 12px 24px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #3367d6;
+}
+
+button:disabled {
+  background-color: var(--light-text);
+  cursor: not-allowed;
+}
+
+button.secondary {
+  background-color: var(--light-background);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+}
+
+button.secondary:hover {
+  background-color: var(--border-color);
+}
+
+.loading {
+  display: none;
+  text-align: center;
+  padding: 20px;
+}
+
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border-left-color: var(--primary-color);
+  animation: spin 1s linear infinite;
+  margin: 0 auto 15px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.result {
+  margin-top: 30px;
+  display: none;
+}
+
+.result h2 {
+  color: var(--primary-color);
+  margin-bottom: 15px;
+}
+
+.result-content {
+  background-color: var(--light-background);
+  border-radius: var(--border-radius);
+  padding: 20px;
+  white-space: pre-wrap;
+}
+
+.error {
+  color: var(--danger-color);
+  padding: 10px;
+  border-radius: var(--border-radius);
+  background-color: rgba(234, 67, 53, 0.1);
+  margin-top: 10px;
+  display: none;
+}
+
+.format-options {
+  display: flex;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.format-button {
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  cursor: pointer;
+  font-size: 14px;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+.format-button:hover {
+  background-color: rgba(66, 133, 244, 0.1);
+}
+
+.format-button.active {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+footer {
+  text-align: center;
+  margin-top: 50px;
+  color: var(--light-text);
+  font-size: 14px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+  
+  .tabs {
+    flex-direction: column;
+    border-bottom: none;
+  }
+  
+  .tab {
+    border-bottom: 1px solid var(--border-color);
+    text-align: center;
+  }
+  
+  .tab.active {
+    border-bottom: 1px solid var(--primary-color);
+    background-color: rgba(66, 133, 244, 0.1);
+  }
+  
+  .button-group {
+    flex-direction: column;
+  }
+}
