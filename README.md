@@ -6,6 +6,12 @@ Consultant-grade market and company research assistant that blends AI with struc
 
 ---
 
+## Live Demo
+
+- https://ai-market-research-assistant.onrender.com
+
+---
+
 ## Why this exists
 
 - Deliver expert, decision-oriented analysis in minutes, not days.
