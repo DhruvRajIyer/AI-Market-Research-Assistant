@@ -12,6 +12,12 @@ Consultant-grade market and company research assistant that blends AI with struc
 
 ---
 
+## Screenshot
+
+![Market Research Assistant Demo](./Demo.png)
+
+---
+
 ## Why this exists
 
 - Deliver expert, decision-oriented analysis in minutes, not days.
