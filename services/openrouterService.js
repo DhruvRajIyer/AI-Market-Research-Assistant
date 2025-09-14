@@ -15,18 +15,33 @@ async function sendPrompt(prompt, options = {}) {
     throw new Error('Prompt must be a non-empty string');
   }
 
-  const apiKey = process.env.OPENROUTER_API_KEY;
+  // Load & validate API key
+  const apiKeyRaw = process.env.OPENROUTER_API_KEY;
+  const apiKey = apiKeyRaw ? apiKeyRaw.trim() : '';
   if (!apiKey) {
     throw new Error('OPENROUTER_API_KEY is not defined in .env file');
   }
+  if (!apiKey.startsWith('sk-or-')) {
+    throw new Error('OPENROUTER_API_KEY appears invalid. It should start with "sk-or-"');
+  }
 
   const {
-    model = 'deepseek/deepseek-r1-0528-qwen3-8b:free',
+    model = process.env.OPENROUTER_MODEL || 'deepseek/deepseek-r1-0528-qwen3-8b:free',
     maxTokens = 1000,
     temperature = 0.7
   } = options;
 
   try {
+    const debug = process.env.DEBUG_OPENROUTER === '1' || process.env.DEBUG_OPENROUTER === 'true';
+    if (debug) {
+      const masked = apiKey ? apiKey.slice(0, 6) + '…' + apiKey.slice(-4) : 'none';
+      console.log('[OpenRouter] model=%s, apiKey(masked)=%s, referer=%s, title=%s',
+        model,
+        masked,
+        process.env.HTTP_REFERER || 'https://github.com/DhruvRajIyer/AI-Market-Research-Assistant',
+        process.env.X_TITLE || 'AI Market Research Assistant'
+      );
+    }
     const response = await axios.post(
       'https://openrouter.ai/api/v1/chat/completions',
       {
@@ -41,8 +56,10 @@ async function sendPrompt(prompt, options = {}) {
         headers: {
           'Authorization': `Bearer ${apiKey}`,
           'Content-Type': 'application/json',
-          'HTTP-Referer': process.env.HTTP_REFERER || 'https://localhost',
-          'X-Title': process.env.X_TITLE || 'Market Research Agent'
+          // OpenRouter recommends setting these two headers
+          'HTTP-Referer': process.env.HTTP_REFERER || 'https://github.com/DhruvRajIyer/AI-Market-Research-Assistant',
+          'X-Title': process.env.X_TITLE || 'AI Market Research Assistant',
+          'Accept': 'application/json'
         }
       }
     );
@@ -52,7 +69,8 @@ async function sendPrompt(prompt, options = {}) {
     if (error.response) {
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx
-      throw new Error(`OpenRouter API error: ${error.response.status} - ${JSON.stringify(error.response.data)}`);
+      const safeMsg = typeof error.response.data === 'string' ? error.response.data : JSON.stringify(error.response.data);
+      throw new Error(`OpenRouter API error: ${error.response.status} - ${safeMsg}`);
     } else if (error.request) {
       // The request was made but no response was received
       throw new Error('No response received from OpenRouter API');

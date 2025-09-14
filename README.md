@@ -75,6 +75,7 @@ npm install
 
 ```bash
 OPENROUTER_API_KEY=your_openrouter_api_key_here
+OPENROUTER_MODEL=deepseek/deepseek-r1-0528-qwen3-8b:free
 PORT=3000
 HTTP_REFERER=https://your-app-domain.com
 X_TITLE=Market Research Agent
@@ -153,6 +154,21 @@ Response shape
   "full_response": { }
 }
 ```
+
+---
+
+## Model configuration
+
+- Default model used in code: `deepseek/deepseek-r1-0528-qwen3-8b:free`.
+- You can override it via `.env`:
+
+```bash
+OPENROUTER_MODEL=deepseek/deepseek-r1-0528-qwen3-8b:free
+```
+
+Notes
+
+- Some free models require specific OpenRouter privacy settings. If you see a 404 related to data policy or ZDR (Zero Data Retention), review your settings at https://openrouter.ai/settings/privacy or select a model compatible with your preferences.
 
 ---
 
