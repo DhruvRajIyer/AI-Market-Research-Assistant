@@ -1,6 +1,6 @@
 # Market Research Agent
 
-A Node.js application that provides market research information for companies and industry sectors using OpenRouter with GPT-3.5-Turbo.
+A Node.js application that provides market research information for companies and industry sectors using OpenRouter with DeepSeek R1 0528 Qwen3 8B
 
 Consultant-grade market and company research assistant that blends AI with structured analysis to produce executive-ready deliverables. Built for strategy, corp dev, product, and investor workflows at the intersection of AI and business transformation.
 
